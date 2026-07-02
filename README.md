@@ -18,25 +18,12 @@ The ingestion and routing pipeline runs fully stateless in the following sequenc
 
 ```mermaid
 graph TD
-    User([User uploads FNOL PDF/TXT]) --> Upload[Streamlit File Ingest]
-    Upload --> Pointer{Stream Reset}
-    Pointer --> Extract[pdfplumber Standard Extraction]
-    
-    Extract --> CheckText{Text Length >= 50?}
-    CheckText -- No (Scanned/Image PDF) --> OCR[pdf2image + pytesseract OCR]
-    CheckText -- Yes --> EmptyCheck{Empty Content Check}
-    OCR --> EmptyCheck
-    
-    EmptyCheck -- Empty --> Halt([Halt: UI Error Alert])
-    EmptyCheck -- Valid Text --> Prompt[Prompt Assembly: replace placeholder]
-    
-    Prompt --> Gemini[Gemini 2.5 Flash API]
-    Gemini --> JSONExtract[Brace-Boundary Isolation & JSON Clean]
-    JSONExtract --> Validate[Pydantic Schema Validation]
-    
-    Validate --> RuleEngine[Priority Routing Engine]
-    RuleEngine --> Dashboard[Render Responsive UI Dashboard]
-    RuleEngine --> JSONExport[st.code JSON Viewer & Download payload]
+    A[User Uploads PDF/TXT] --> B[Extract Text]
+    B --> C[Google Gemini AI]
+    C --> D[Extract Required Fields]
+    D --> E[Apply Business Rules]
+    E --> F[Generate JSON Output]
+    E --> G[Display Results Dashboard]
 ```
 
 ---
