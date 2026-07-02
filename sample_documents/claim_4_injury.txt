@@ -1,0 +1,27 @@
+FNOL INTAKE FORM
+----------------
+Policy Information:
+- Policy Number: POL-112233-08
+- Policyholder Name: Richard Vance
+- Effective Dates: 2025-10-15 to 2026-10-15
+
+Incident Information:
+- Date: 2026-03-10
+- Time: 11:00
+- Location: Highway 101, Mile Marker 45
+- Description: The policyholder's vehicle was rear-ended by a third party at high speed. The impact pushed the car into the barrier. The policyholder sustained whiplash and minor head injuries, requiring immediate transport to the emergency room.
+
+Involved Parties:
+- Claimant: Richard Vance
+- Third Parties: Driver of vehicle 2 (John Doe)
+- Contact Details: rvance@email.com, 555-8833
+
+Asset Details:
+- Asset Type: 2020 Ford Explorer
+- Asset ID: VIN-1FM5K8D84
+- Estimated Damage: $18,500.00
+
+Other Fields:
+- Claim Type: Injury
+- Attachments: Medical report page 1, Vehicle damage photos
+- Initial Estimate: $22,000.00

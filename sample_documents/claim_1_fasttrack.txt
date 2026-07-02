@@ -1,0 +1,27 @@
+FIRST NOTICE OF LOSS (FNOL)
+===========================
+Policy Information:
+- Policy Number: POL-883721-09
+- Policyholder Name: Charles Sterling
+- Effective Dates: 2025-01-01 to 2025-12-31
+
+Incident Information:
+- Date: 2026-05-12
+- Time: 14:30
+- Location: 1422 Elm Street, Springfield
+- Description: While backing out of the driveway, the policyholder scraped the rear bumper of the vehicle against a low concrete pillar. The scratch is deep but purely cosmetic.
+
+Involved Parties:
+- Claimant: Charles Sterling
+- Third Parties: None
+- Contact Details: csterling@email.com, 555-0199
+
+Asset Details:
+- Asset Type: 2022 Honda Civic (Sedan)
+- Asset ID: VIN-1HGFA1FP0381
+- Estimated Damage: $1,200.00
+
+Other Mandatory Fields:
+- Claim Type: Collision
+- Attachments: None
+- Initial Estimate: $1,200.00
