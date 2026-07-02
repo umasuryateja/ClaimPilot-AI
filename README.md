@@ -223,5 +223,5 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more details.
 Developed with ❤️ by **Jakka Uma Surya Teja**
 
 * **GitHub**: [umasuryateja](https://github.com/umasuryateja)
-* **LinkedIn**: [surya-teja-jakka](https://www.linkedin.com/in/surya-teja-jakka/)
-* **Portfolio**: [surya-portfolio](https://umasuryateja.github.io/portfolio/)
+* **LinkedIn**: [surya-teja-jakka](https://www.linkedin.com/in/umasuryateja/)
+* **Portfolio**: [surya-portfolio](https://surya-teja-portfolio-dun.vercel.app/)
