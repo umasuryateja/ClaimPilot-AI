@@ -6,7 +6,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-blue?logo=python)](https://www.python.org/)
 [![Streamlit App](https://img.shields.io/badge/streamlit-1.30.0%2B-red?logo=streamlit)](https://streamlit.io/)
 [![Google Gemini API](https://img.shields.io/badge/gemini-2.5--flash-orange?logo=google)](https://deepmind.google/technologies/gemini/)
-[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE) .
 
 ClaimPilot AI is a production-grade Document AI agent that automates the extraction, validation, and routing of First Notice of Loss (FNOL) documents. By replacing manual classification workflows with structured, zero-click extraction powered by Google Gemini, ClaimPilot AI extracts policy and incident metrics, checks data integrity via Pydantic, and routes claims dynamically using a prioritized rule engine.
 
