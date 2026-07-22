@@ -12,6 +12,20 @@ ClaimPilot AI is a production-grade Document AI agent that automates the extract
 
 ---
 
+## 🔗 Live Demo & Deployment Info
+
+**Live Web Application**: [claimpilot-ai-ylrl.onrender.com](https://claimpilot-ai-ylrl.onrender.com/)
+
+> [!NOTE]
+> **Render Free Tier Spin-up**: Because the live demo is deployed on a Render Free Tier instance, the server will spin down due to inactivity. If you experience a delay during the initial load, please wait about 30 seconds for the container to wake up.
+
+### 💡 Sidebar Demo Panel
+To make testing quick and easy, the application features an interactive **Demo Panel** in the sidebar:
+* **Preloaded Examples**: Select any of the 5 sample claim files from the dropdown in the sidebar to instantly load and process their details.
+* **Custom Uploads**: To upload your own PDF or TXT files, choose **"Select a sample..."** from the dropdown (or click **"Clear Current Results"** under the Actions container) to close the demo preset and reveal the drag-and-drop file uploader.
+
+---
+
 ## 📐 Architecture Workflow
 
 The ingestion and routing pipeline runs fully stateless in the following sequence:
