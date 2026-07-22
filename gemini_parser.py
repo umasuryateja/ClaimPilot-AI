@@ -76,44 +76,62 @@ def parse_fnol_document(document_text: str) -> Tuple[Dict[str, Any], bool]:
     backoff_factor = 2.0
     last_error = None
     
-    model = genai.GenerativeModel(GEMINI_MODEL)
+    # Try the configured model first, fallback to stable gemini-1.5-flash if needed
+    models_to_try = [GEMINI_MODEL, "gemini-1.5-flash"]
     
-    for attempt in range(max_retries + 1):
+    for model_name in models_to_try:
         try:
-            logger.info(f"Invoking Gemini model {GEMINI_MODEL} (Attempt {attempt + 1}/{max_retries + 1})...")
+            model = genai.GenerativeModel(model_name)
+            for attempt in range(max_retries + 1):
+                try:
+                    logger.info(f"Invoking Gemini model {model_name} (Attempt {attempt + 1}/{max_retries + 1})...")
+                    
+                    # Request JSON response format
+                    response = model.generate_content(
+                        prompt,
+                        generation_config={
+                            "temperature": 0.0,
+                            "response_mime_type": "application/json"
+                        }
+                    )
+                    
+                    raw_response = response.text
+                    
+                    # Clean and parse JSON using the robust extractor
+                    parsed_json = extract_json_from_response(raw_response)
+                    
+                    # Success
+                    logger.info(f"Successfully extracted and parsed JSON from Gemini using {model_name}.")
+                    return parsed_json, is_truncated
+                    
+                except ValueError as ve:
+                    last_error = ve
+                    logger.warning(f"Failed to parse JSON response on attempt {attempt + 1} with {model_name}: {str(ve)}")
+                    if attempt < max_retries:
+                        sleep_time = backoff_factor ** attempt
+                        logger.info(f"Retrying in {sleep_time} seconds...")
+                        time.sleep(sleep_time)
+                except Exception as e:
+                    last_error = e
+                    err_msg = str(e)
+                    logger.error(f"Gemini API error on attempt {attempt + 1} with {model_name}: {err_msg}")
+                    
+                    # If rate limit or quota exceeded, try retrying or let loop switch to fallback model
+                    if attempt < max_retries:
+                        sleep_time = backoff_factor ** attempt
+                        logger.info(f"Retrying in {sleep_time} seconds...")
+                        time.sleep(sleep_time)
+        except Exception as outer_e:
+            logger.warning(f"Failed to initialize or run calls using {model_name}: {str(outer_e)}")
+            last_error = outer_e
             
-            # Request JSON response format
-            response = model.generate_content(
-                prompt,
-                generation_config={
-                    "temperature": 0.0,
-                    "response_mime_type": "application/json"
-                }
-            )
-            
-            raw_response = response.text
-            
-            # Clean and parse JSON using the robust extractor
-            parsed_json = extract_json_from_response(raw_response)
-            
-            # Success
-            logger.info("Successfully extracted and parsed JSON from Gemini.")
-            return parsed_json, is_truncated
-            
-        except ValueError as ve:
-            last_error = ve
-            logger.warning(f"Failed to parse JSON response on attempt {attempt + 1}: {str(ve)}")
-            if attempt < max_retries:
-                sleep_time = backoff_factor ** attempt
-                logger.info(f"Retrying in {sleep_time} seconds...")
-                time.sleep(sleep_time)
-        except Exception as e:
-            last_error = e
-            logger.error(f"Gemini API error on attempt {attempt + 1}: {str(e)}")
-            if attempt < max_retries:
-                sleep_time = backoff_factor ** attempt
-                logger.info(f"Retrying in {sleep_time} seconds...")
-                time.sleep(sleep_time)
-                
-    # If we get here, all attempts failed
+    # If we get here, all attempts on all models failed.
+    # Raise a clear error indicating quota limit so the pipeline can trigger heuristic fallback.
+    err_str = str(last_error)
+    if "429" in err_str or "quota" in err_str.lower():
+        raise ValueError(
+            "🔑 Gemini API Quota Exceeded (429 Error). "
+            "You have hit the request limit for the free tier on all models."
+        ) from last_error
+        
     raise ValueError(f"The AI response could not be parsed as JSON (after retries). Last error: {last_error}")
