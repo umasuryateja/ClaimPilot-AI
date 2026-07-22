@@ -76,8 +76,8 @@ def parse_fnol_document(document_text: str) -> Tuple[Dict[str, Any], bool]:
     backoff_factor = 2.0
     last_error = None
     
-    # Try the configured model first, fallback to stable gemini-1.5-flash if needed
-    models_to_try = [GEMINI_MODEL, "gemini-1.5-flash"]
+    # Try the configured model first, fallback to stable gemini-2.5-flash or gemini-3.5-flash if needed
+    models_to_try = [GEMINI_MODEL, "gemini-2.5-flash", "gemini-3.5-flash"]
     
     for model_name in models_to_try:
         try:
